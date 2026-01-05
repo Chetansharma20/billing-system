@@ -86,10 +86,10 @@ const Invoice = React.forwardRef(({ data }, ref) => {
     };
 
     return (
-        <div ref={ref} className="bg-amber-50 p-8 text-black font-sans box-border h-full flex flex-col justify-between">
+        <div ref={ref} className="bg-amber-50 p-4 text-black font-sans box-border h-full flex flex-col justify-between">
             {/* Invoice Header */}
             <div>
-                <div className="border-b-4 border-gray-800 pb-2 mb-4 shadow-sm">
+                <div className="border-b-4 border-gray-800 pb-1 mb-2 shadow-sm">
                     <div className="flex items-start justify-between gap-4">
                         {/* Left: Logo */}
                         <div className="flex-shrink-0 relative -top-3">
@@ -135,23 +135,23 @@ const Invoice = React.forwardRef(({ data }, ref) => {
                 </div>
 
                 {/* Customer Details */}
-                <div className="mb-6 bg-white p-4 rounded-lg border-2 border-gray-300 shadow-sm">
+                <div className="mb-3 bg-white p-3 rounded-lg border-2 border-gray-300 shadow-sm">
                     <h3 className="text-base font-bold text-gray-900 mb-2 border-b-2 border-gray-800 pb-1 uppercase">Details of Customer </h3>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
                             <p className="font-medium"><span className="font-bold text-gray-900">Name:</span> {customerName}</p>
                             <p className="font-medium"><span className="font-bold text-gray-900">Mobile:</span> {mobileNumber}</p>
-                            {customerGst && <p className="font-medium"><span className="font-bold text-gray-900">GSTIN:</span> {customerGst}</p>}
+                            {customerGst && <p className="font-medium"><span className="font-bold text-gray-900">GSTIN:</span> <span className="uppercase">{customerGst}</span></p>}
                         </div>
                         <div>
                             <p className="font-medium"><span className="font-bold text-gray-900">Address:</span> {address}</p>
-                            {customerPan && <p className="font-medium"><span className="font-bold text-gray-900">PAN:</span> {customerPan}</p>}
+                            {customerPan && <p className="font-medium"><span className="font-bold text-gray-900">PAN:</span> <span className="uppercase">{customerPan}</span></p>}
                         </div>
                     </div>
                 </div>
 
                 {/* Product Details Table */}
-                <div className="mb-6">
+                <div className="mb-3">
                     <table className="w-full border-collapse border-3 border-gray-800 text-sm shadow-md">
                         <thead>
                             <tr className="bg-gray-200 text-black">
@@ -224,10 +224,10 @@ const Invoice = React.forwardRef(({ data }, ref) => {
             </div>
 
             {/* Footer / Terms */}
-            <div className="mt-8">
-                <div className="border-t-4 border-gray-800 pt-6">
+            <div className="mt-4">
+                <div className="border-t-4 border-gray-800 pt-3">
                     {/* Terms & Conditions */}
-                    <div className="text-xs text-gray-700 mb-8">
+                    <div className="text-xs text-gray-700 mb-4">
                         <h4 className="font-black text-gray-900 mb-2 uppercase text-sm">Terms & Conditions:</h4>
                         <ol className="list-decimal list-inside space-y-1 font-medium">
                             <li>Goods once sold will not be taken back.</li>
@@ -238,17 +238,17 @@ const Invoice = React.forwardRef(({ data }, ref) => {
                     </div>
 
                     {/* Signatures */}
-                    <div className="flex justify-between items-end mt-8">
+                    <div className="flex justify-between items-end mt-4">
                         {/* Left: Customer Signature */}
                         <div className="text-left">
-                            <div className="h-24 mb-2 border-b-2 border-dashed border-gray-600 w-48"></div>
+                            <div className="h-16 mb-1 border-b-2 border-dashed border-gray-600 w-48"></div>
                             <p className="font-bold text-sm text-gray-900">Customer Signature</p>
                             <p className="text-xs text-gray-600 font-semibold">Date: {formattedDate}</p>
                         </div>
 
                         {/* Right: Authorized Signature */}
                         <div className="text-right">
-                            <div className="h-24 mb-2 border-b-2 border-dashed border-gray-600 w-48"></div>
+                            <div className="h-16 mb-1 border-b-2 border-dashed border-gray-600 w-48"></div>
                             <p className="font-bold text-sm text-gray-900">Authorized Signatory</p>
                             <p className="text-xs text-gray-600 font-semibold">{SHOP_DETAILS.name}</p>
                             <p className="text-xs text-gray-600 font-semibold">(Pro.Annasaheb Chandrakant moin)</p>
