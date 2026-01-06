@@ -98,13 +98,10 @@ const Invoice = React.forwardRef(({ data }, ref) => {
 
                         {/* Center: Shop Name & Address */}
                         <div className="flex-1 text-center">
-                            <h1 className="text-3xl font-black text-black uppercase leading-tight tracking-wide mb-1" style={{
-                                background: 'linear-gradient(135deg, #000000 0%, #D4AF37 50%, #000000 100%)',
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
-                                backgroundClip: 'text'
-                            }}>
-                                {SHOP_DETAILS.name}
+                            <h1 className="text-3xl font-black uppercase leading-tight tracking-wide mb-1">
+                                <span style={{ color: '#3E2723' }}>VIGHN</span>
+                                <span style={{ color: '#D4AF37' }}>AHARTA</span>
+                                <span style={{ color: '#3E2723' }}> MOTORS</span>
                             </h1>
                             <p className="text-[11px] text-gray-700 leading-tight max-w-md mx-auto">
                                 Vaijapur-Gangapur Road, <b>Vaijapur</b> - 423701

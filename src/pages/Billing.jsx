@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import { logout } from '../utils/auth';
 import { useNavigate } from 'react-router-dom';
-import { Save, Printer, LogOut, RefreshCw, Trash2 } from 'lucide-react';
+import { Save, Printer, LogOut, RefreshCw, Trash2, Download } from 'lucide-react';
+import html2pdf from 'html2pdf.js';
 import Invoice from '../components/Invoice';
 
 const INITIAL_STATE = {
@@ -85,6 +86,18 @@ const Billing = () => {
         contentRef: componentRef,
         documentTitle: `Invoice-${formData.customerName || 'New'}`,
     });
+
+    const handleDownload = () => {
+        const element = componentRef.current;
+        const opt = {
+            margin: 0,
+            filename: `Invoice-${formData.invoiceNumber || formData.customerName || 'New'}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save();
+    };
 
     return (
         <div className="min-h-screen bg-gray-50 pb-12">
@@ -310,8 +323,19 @@ const Billing = () => {
                                 </div>
                             </div>
 
-                            {/* Mobile Print Button */}
-                            <div className="lg:hidden pt-4">
+                            {/* Mobile Action Buttons */}
+                            <div className="lg:hidden pt-4 space-y-3">
+                                <button
+                                    type="button"
+                                    onClick={(e) => {
+                                        handleSubmit(e);
+                                        setTimeout(handleDownload, 100);
+                                    }}
+                                    className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center shadow-sm text-base font-medium"
+                                >
+                                    <Download className="h-5 w-5 mr-2" />
+                                    Download Bill
+                                </button>
                                 <button
                                     type="button"
                                     onClick={(e) => {
@@ -335,17 +359,29 @@ const Billing = () => {
                                     <Printer className="h-5 w-5 mr-2 text-green-600" />
                                     Bill Preview
                                 </h2>
-                                {/* Desktop Print Button */}
-                                <button
-                                    onClick={(e) => {
-                                        handleSubmit(e);
-                                        setTimeout(handlePrint, 100);
-                                    }}
-                                    className="hidden lg:flex bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors items-center shadow-sm"
-                                >
-                                    <Printer className="h-4 w-4 mr-2" />
-                                    Print Bill
-                                </button>
+                                {/* Desktop Action Buttons */}
+                                <div className="hidden lg:flex gap-2">
+                                    <button
+                                        onClick={(e) => {
+                                            handleSubmit(e);
+                                            setTimeout(handleDownload, 100);
+                                        }}
+                                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center shadow-sm"
+                                    >
+                                        <Download className="h-4 w-4 mr-2" />
+                                        Download
+                                    </button>
+                                    <button
+                                        onClick={(e) => {
+                                            handleSubmit(e);
+                                            setTimeout(handlePrint, 100);
+                                        }}
+                                        className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center shadow-sm"
+                                    >
+                                        <Printer className="h-4 w-4 mr-2" />
+                                        Print
+                                    </button>
+                                </div>
                             </div>
 
                             <div className="border rounded-lg bg-gray-50 p-2 lg:p-4 flex-grow overflow-auto max-h-[500px] lg:max-h-[800px]">
