@@ -14,7 +14,7 @@ const Login = () => {
         if (login(username, password)) {
             navigate('/billing');
         } else {
-            setError('Invalid credentials (use admin/admin123)');
+            setError('Invalid credentials');
         }
     };
 
@@ -37,7 +37,7 @@ const Login = () => {
                                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                 placeholder="Enter username"
                                 value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                onChange={(e) => setUsername(e.target.value.trim())}
                             />
                         </div>
                     </div>
@@ -50,7 +50,7 @@ const Login = () => {
                                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                 placeholder="Enter password"
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => setPassword(e.target.value.trim())}
                             />
                         </div>
                     </div>
