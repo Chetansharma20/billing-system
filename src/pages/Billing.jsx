@@ -1,11 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import { logout } from '../utils/auth';
 import { useNavigate } from 'react-router-dom';
 import { Save, Printer, LogOut, RefreshCw, Trash2, Download, MessageCircle, Copy } from 'lucide-react';
 
 import { pdf } from '@react-pdf/renderer';
-import html2pdf from 'html2pdf.js';
 import Invoice from '../components/Invoice';
 import InvoicePDF from '../components/InvoicePDF';
 import logo from '../assets/zelio.png';
@@ -31,6 +30,7 @@ const INITIAL_STATE = {
 
 const Billing = () => {
     const [formData, setFormData] = useState(INITIAL_STATE);
+    const [previewData, setPreviewData] = useState(INITIAL_STATE); // Debounced data for preview
     const navigate = useNavigate();
     const componentRef = useRef();
 
@@ -66,9 +66,22 @@ const Billing = () => {
         localStorage.setItem('billingData', JSON.stringify(dataToSave));
     };
 
-    // Save to local storage on change
+    // Save to local storage on change (debounced to prevent lag)
     useEffect(() => {
-        localStorage.setItem('billingFormData', JSON.stringify(formData));
+        const timeoutId = setTimeout(() => {
+            localStorage.setItem('billingFormData', JSON.stringify(formData));
+        }, 500); // Save 500ms after user stops typing
+
+        return () => clearTimeout(timeoutId);
+    }, [formData]);
+
+    // Debounce preview updates to prevent lag (300ms delay)
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            setPreviewData(formData);
+        }, 300);
+
+        return () => clearTimeout(timeoutId);
     }, [formData]);
 
     const handleChange = (e) => {
@@ -236,6 +249,23 @@ const Billing = () => {
                                         name="customerName"
                                         value={formData.customerName}
                                         onChange={handleChange}
+                                        onBlur={(e) => {
+                                            const val = e.target.value;
+                                            if (!val) return;
+                                            // Split PascalCase (e.g. AmitKumar -> Amit Kumar)
+                                            let formatted = val.toString().replace(/([a-z])([A-Z])/g, '$1 $2');
+
+                                            // Handle multiple spaces and capitalization
+                                            formatted = formatted
+                                                .split(/\s+/)                  // Split by any whitespace
+                                                .filter(word => word.length > 0) // Remove empty strings
+                                                .map(word =>
+                                                    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                                                )
+                                                .join(' ');
+
+                                            setFormData(prev => ({ ...prev, customerName: formatted }));
+                                        }}
                                         className="w-full px-3 py-3 text-base border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                         placeholder="Enter customer name"
                                     />
@@ -501,7 +531,7 @@ const Billing = () => {
                             <div className="border rounded-lg bg-gray-50 p-2 lg:p-4 flex-grow overflow-auto max-h-[500px] lg:max-h-[800px]">
                                 {/* Invoice Component Ref - Scaled smaller on mobile */}
                                 <div className="bg-white shadow-sm mx-auto transform scale-50 origin-top lg:scale-75" style={{ width: '210mm', minHeight: '297mm' }}>
-                                    <Invoice ref={componentRef} data={formData} />
+                                    <Invoice ref={componentRef} data={previewData} />
                                 </div>
                             </div>
                         </div>

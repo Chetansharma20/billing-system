@@ -162,7 +162,7 @@ const Invoice = React.forwardRef(({ data }, ref) => {
                                 <td className="border-2 border-gray-600 p-2 text-center align-top font-semibold">1</td>
                                 <td className="border-2 border-gray-600 p-2 align-top">
                                     <p className="font-bold text-gray-900">{vehicleModel?.toUpperCase()} - {color?.charAt(0).toUpperCase() + color?.slice(1).toLowerCase()}</p>
-                                    <p className="text-xs text-gray-600 mt-1 italic">Electric Two Wheeler</p>
+                                    <p className="text-xs text-gray-600 mt-1 italic">Electric Scooter (Low-Speed) Two-Wheeler</p>
 
                                     {/* Vehicle Specific Details - Sequential */}
                                     <div className="mt-3 text-xs text-gray-800 space-y-1 font-medium">

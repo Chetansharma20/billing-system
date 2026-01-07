@@ -374,8 +374,8 @@ const InvoicePDF = ({ data, logoBase64, whatsappBase64 }) => {
                             <Text style={styles.boldText}>Invoice No: </Text>{invoiceNumber}
                         </Text>
                         <Text style={styles.invoiceText}>Pro Annasaheb Moin</Text>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: 6 }}>
-                            <View style={{ marginRight: 5, justifyContent: 'center' }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: -2 }}>
+                            <View style={{ marginRight: 5, justifyContent: 'center', marginTop: 2 }}>
                                 {whatsappBase64 && <Image style={{ width: 10, height: 9 }} src={whatsappBase64} />}
                             </View>
                             <View style={{ paddingTop: 3 }}>
@@ -435,7 +435,7 @@ const InvoicePDF = ({ data, logoBase64, whatsappBase64 }) => {
                                 {vehicleModel?.toUpperCase()} - {color?.charAt(0).toUpperCase() + color?.slice(1).toLowerCase()}
                             </Text>
                             <Text style={{ fontSize: 8, color: '#4b5563', fontStyle: 'italic', marginTop: 2 }}>
-                                Electric Two Wheeler
+                           Electric Scooter (Low-Speed) Two-Wheeler
                             </Text>
                             <View style={styles.vehicleDetails}>
                                 {chassisNo && <Text style={styles.vehicleRow}><Text style={styles.boldText}>Chassis No: </Text>{chassisNo}</Text>}
