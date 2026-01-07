@@ -2,9 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import { logout } from '../utils/auth';
 import { useNavigate } from 'react-router-dom';
-import { Save, Printer, LogOut, RefreshCw, Trash2, Download } from 'lucide-react';
+import { Save, Printer, LogOut, RefreshCw, Trash2, Download, MessageCircle, Copy } from 'lucide-react';
+
+import { pdf } from '@react-pdf/renderer';
 import html2pdf from 'html2pdf.js';
 import Invoice from '../components/Invoice';
+import InvoicePDF from '../components/InvoicePDF';
+import logo from '../assets/zelio.png';
+import whatsappIcon from '../assets/whatsapp-icon.png';
 
 const INITIAL_STATE = {
     customerName: '',
@@ -87,16 +92,103 @@ const Billing = () => {
         documentTitle: `Invoice-${formData.customerName || 'New'}`,
     });
 
-    const handleDownload = () => {
-        const element = componentRef.current;
-        const opt = {
-            margin: 0,
-            filename: `Invoice-${formData.invoiceNumber || formData.customerName || 'New'}.pdf`,
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    const handleDownload = async () => {
+        // Ensure invoice number is generated
+        const dataToUse = {
+            ...formData,
+            invoiceNumber: formData.invoiceNumber || generateInvoiceNumber()
         };
-        html2pdf().set(opt).from(element).save();
+
+        // Update state with invoice number
+        if (!formData.invoiceNumber) {
+            setFormData(dataToUse);
+        }
+
+        try {
+            const blob = await pdf(
+                <InvoicePDF
+                    data={dataToUse}
+                    logoBase64={logo}
+                    whatsappBase64={whatsappIcon}
+                />
+            ).toBlob();
+
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `Invoice-${dataToUse.invoiceNumber || dataToUse.customerName || 'New'}.pdf`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+            alert('Error generating PDF. Please try again.');
+        }
+    };
+
+    const handleWhatsAppShare = async () => {
+        // Ensure invoice number is generated
+        const dataToUse = {
+            ...formData,
+            invoiceNumber: formData.invoiceNumber || generateInvoiceNumber()
+        };
+
+        if (!formData.invoiceNumber) {
+            setFormData(dataToUse);
+        }
+
+        // Copy number to clipboard
+        if (dataToUse.mobileNumber) {
+            try {
+                await navigator.clipboard.writeText(dataToUse.mobileNumber);
+                // Could be replaced with a toast notification
+                alert('Customer number copied to clipboard! Paste it in WhatsApp search.');
+            } catch (err) {
+                console.error('Failed to copy number:', err);
+            }
+        }
+
+        try {
+            // Generate PDF Blob
+            const blob = await pdf(
+                <InvoicePDF
+                    data={dataToUse}
+                    logoBase64={logo}
+                    whatsappBase64={whatsappIcon}
+                />
+            ).toBlob();
+
+            const file = new File([blob], `Invoice-${dataToUse.invoiceNumber || dataToUse.customerName || 'New'}.pdf`, { type: 'application/pdf' });
+
+            // Check if native sharing is supported (Mobile)
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                    files: [file],
+                    title: 'Invoice',
+                    text: `Invoice for ${dataToUse.customerName}`,
+                });
+            } else {
+                // Fallback for Desktop: Download & Open WhatsApp Web
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `Invoice-${dataToUse.invoiceNumber || dataToUse.customerName || 'New'}.pdf`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+
+                const waUrl = `https://wa.me/${dataToUse.mobileNumber ? '91' + dataToUse.mobileNumber : ''}?text=Please find the attached invoice.`;
+                window.open(waUrl, '_blank');
+                alert('PDF downloaded. Please attach it to the WhatsApp chat opened in the new tab.');
+            }
+        } catch (error) {
+            console.error('Error sharing:', error);
+            if (error.name !== 'AbortError') {
+                alert('Error sharing invoice. Please try downloading instead.');
+            }
+        }
     };
 
     return (
@@ -347,6 +439,17 @@ const Billing = () => {
                                     <Printer className="h-5 w-5 mr-2" />
                                     Print Bill
                                 </button>
+                                <button
+                                    type="button"
+                                    onClick={(e) => {
+                                        handleSubmit(e);
+                                        setTimeout(handleWhatsAppShare, 100);
+                                    }}
+                                    className="w-full bg-teal-600 text-white px-4 py-3 rounded-lg hover:bg-teal-700 transition-colors flex items-center justify-center shadow-sm text-base font-medium"
+                                >
+                                    <MessageCircle className="h-5 w-5 mr-2" />
+                                    Share on WhatsApp
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -380,6 +483,17 @@ const Billing = () => {
                                     >
                                         <Printer className="h-4 w-4 mr-2" />
                                         Print
+                                    </button>
+                                    <button
+                                        onClick={(e) => {
+                                            handleSubmit(e);
+                                            setTimeout(handleWhatsAppShare, 100);
+                                        }}
+                                        className="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition-colors flex items-center shadow-sm"
+                                        title="Share on WhatsApp"
+                                    >
+                                        <MessageCircle className="h-4 w-4 mr-2" />
+                                        Share
                                     </button>
                                 </div>
                             </div>
