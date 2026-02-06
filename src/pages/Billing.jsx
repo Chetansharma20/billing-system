@@ -15,7 +15,7 @@ import {
 
 import { pdf } from "@react-pdf/renderer";
 import Invoice from "../components/Invoice";
-import InvoicePDF from "../components/InvoicePDF";
+import InvoicePDF from "../components/NewInvoicePDF";
 import logo from "../assets/zelio.png";
 import whatsappIcon from "../assets/whatsapp-icon.png";
 
@@ -38,6 +38,7 @@ const INITIAL_STATE = {
 };
 
 const Billing = () => {
+  // Application of NS MOTORS rebranding verified
   const [formData, setFormData] = useState(INITIAL_STATE);
   const [previewData, setPreviewData] = useState(INITIAL_STATE); // Debounced data for preview
   const navigate = useNavigate();
@@ -197,9 +198,8 @@ const Billing = () => {
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = `Invoice-${
-        dataToUse.invoiceNumber || dataToUse.customerName || "New"
-      }.pdf`;
+      link.download = `Invoice-${dataToUse.invoiceNumber || dataToUse.customerName || "New"
+        }.pdf`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -246,8 +246,7 @@ const Billing = () => {
 
       const file = new File(
         [blob],
-        `Invoice-${
-          dataToUse.invoiceNumber || dataToUse.customerName || "New"
+        `Invoice-${dataToUse.invoiceNumber || dataToUse.customerName || "New"
         }.pdf`,
         { type: "application/pdf" }
       );
@@ -264,17 +263,15 @@ const Billing = () => {
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = `Invoice-${
-          dataToUse.invoiceNumber || dataToUse.customerName || "New"
-        }.pdf`;
+        link.download = `Invoice-${dataToUse.invoiceNumber || dataToUse.customerName || "New"
+          }.pdf`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
 
-        const waUrl = `https://wa.me/${
-          dataToUse.mobileNumber ? "91" + dataToUse.mobileNumber : ""
-        }?text=Please find the attached invoice.`;
+        const waUrl = `https://wa.me/${dataToUse.mobileNumber ? "91" + dataToUse.mobileNumber : ""
+          }?text=Please find the attached invoice.`;
         window.open(waUrl, "_blank");
         alert(
           "PDF downloaded. Please attach it to the WhatsApp chat opened in the new tab."

@@ -519,7 +519,7 @@ const InvoicePDF = ({ data, logoBase64, whatsappBase64 }) => {
                 </View>
 
                 <Text style={styles.footer}>
-                    This is a computer generated invoice and does not require a physical signature.
+                    This is a computer generated invoice and does not require a physical signature. (v2.1)
                 </Text>
             </Page>
         </Document>
