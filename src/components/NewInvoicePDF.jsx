@@ -4,18 +4,18 @@ import { Document, Page, Text, View, Image, StyleSheet } from '@react-pdf/render
 // Hardcoded Shop Details
 // Hardcoded Shop Details
 const SHOP_DETAILS = {
-    name: "NS MOTORS",
-    address: "SERVE NO 208/9, SHOP NO 1, SHRIRAM NAGAR, YEOLA ROAD, Chamunda Steel Traders, Vidya Nagar, Kopargaon Ahilyanagar, Maharashtra, 423601",
-    mobile: "+91 77969 50202",
-    gstin: "27AKNPW2296B1ZR",
+    name: "VIGHNAHARTA MOTORS",
+    address: "Vaijapur-Gangapur Road, Vaijapur - 423701",
+    mobile: "+91 9730171267",
+    gstin: "27GJVPM3300M1ZN",
     hsn: "87116010",
-    pan: "AKNPW2296B",
-    email: "nikhilwakode2006@gmail.com"
+    pan: "GJVPM3300M",
+    email: "" // Email removed as per request for cleaner look if not provided
 };
 
 const styles = StyleSheet.create({
     page: {
-        backgroundColor: '#f8fafc',
+        backgroundColor: '#FFFBEB', // Amber 50
         padding: 20,
         fontSize: 10,
     },
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         borderBottomWidth: 3,
-        borderBottomColor: '#1e293b',
+        borderBottomColor: '#000000', // Changed to Black
         paddingBottom: 8,
         marginBottom: 10,
     },
@@ -45,19 +45,19 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
         fontFamily: 'Times-Roman',
-        color: '#1e40af',
+        color: '#C49A2F', // Updated to Gold per user request
         textTransform: 'uppercase',
         letterSpacing: 1,
         marginBottom: 4,
     },
     shopAddress: {
         fontSize: 9,
-        color: '#374151',
+        color: '#4B5563', // Gray 600
         marginBottom: 2,
     },
     shopGst: {
         fontSize: 8,
-        color: '#374151',
+        color: '#4B5563',
     },
     invoiceDetails: {
         width: 120,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 4,
         borderWidth: 1,
-        borderColor: '#d1d5db',
+        borderColor: '#000000', // Changed to Black
         marginBottom: 10,
     },
     sectionTitle: {
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         fontWeight: 700,
         color: '#111827',
         borderBottomWidth: 1,
-        borderBottomColor: '#1f2937',
+        borderBottomColor: '#000000', // Changed to Black
         paddingBottom: 4,
         marginBottom: 8,
         textTransform: 'uppercase',
@@ -107,17 +107,17 @@ const styles = StyleSheet.create({
     },
     tableHeader: {
         flexDirection: 'row',
-        backgroundColor: '#e2e8f0',
+        backgroundColor: '#E2E8F0', // Slate 200
         borderWidth: 2,
-        borderColor: '#1e293b',
+        borderColor: '#000000', // Changed to Black
     },
     tableHeaderCell: {
         padding: 6,
         fontWeight: 900,
         fontSize: 9,
-        color: '#0f172a',
+        color: '#000000', // Changed to Black
         borderRightWidth: 1,
-        borderRightColor: '#1e293b',
+        borderRightColor: '#000000', // Changed to Black
     },
     tableRow: {
         flexDirection: 'row',
@@ -125,13 +125,13 @@ const styles = StyleSheet.create({
         borderLeftWidth: 1,
         borderRightWidth: 1,
         borderBottomWidth: 1,
-        borderColor: '#4b5563',
+        borderColor: '#000000', // Changed to Black
     },
     tableCell: {
         padding: 6,
         fontSize: 9,
         borderRightWidth: 1,
-        borderRightColor: '#4b5563',
+        borderRightColor: '#000000', // Changed to Black
     },
     tableCellSr: { width: '6%', textAlign: 'center' },
     tableCellDesc: { width: '34%' },
@@ -142,11 +142,11 @@ const styles = StyleSheet.create({
     // Footer rows
     footerRow: {
         flexDirection: 'row',
-        backgroundColor: '#f3f4f6',
+        backgroundColor: '#F1F5F9', // Slate 100
         borderLeftWidth: 1,
         borderRightWidth: 1,
         borderBottomWidth: 1,
-        borderColor: '#4b5563',
+        borderColor: '#000000', // Changed to Black
     },
     footerLabel: {
         width: '80%',
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
         fontWeight: 700,
         fontSize: 9,
         borderRightWidth: 1,
-        borderRightColor: '#4b5563',
+        borderRightColor: '#000000', // Changed to Black
     },
     footerValue: {
         width: '20%',
@@ -166,9 +166,9 @@ const styles = StyleSheet.create({
     },
     totalRow: {
         flexDirection: 'row',
-        backgroundColor: '#e2e8f0',
+        backgroundColor: '#E2E8F0', // Slate 200 (Lighter Grey)
         borderWidth: 2,
-        borderColor: '#1e293b',
+        borderColor: '#000000', // Changed to Black
     },
     totalLabel: {
         width: '80%',
@@ -176,8 +176,9 @@ const styles = StyleSheet.create({
         textAlign: 'right',
         fontWeight: 900,
         fontSize: 11,
+        color: '#000000', // Changed to Black
         borderRightWidth: 1,
-        borderRightColor: '#1e293b',
+        borderRightColor: '#000000', // Changed to Black
     },
     totalValue: {
         width: '20%',
@@ -185,13 +186,14 @@ const styles = StyleSheet.create({
         textAlign: 'right',
         fontWeight: 900,
         fontSize: 11,
+        color: '#000000', // Changed to Black
     },
     wordsRow: {
         flexDirection: 'row',
         backgroundColor: '#ffffff',
         borderWidth: 2,
         borderTopWidth: 0,
-        borderColor: '#1f2937',
+        borderColor: '#000000', // Changed to Black
         padding: 6,
     },
     wordsText: {
@@ -208,7 +210,7 @@ const styles = StyleSheet.create({
     // Terms Section
     termsSection: {
         borderTopWidth: 3,
-        borderTopColor: '#1f2937',
+        borderTopColor: '#000000', // Changed to Black
         paddingTop: 10,
         marginTop: 10,
     },
@@ -236,7 +238,7 @@ const styles = StyleSheet.create({
     signatureLine: {
         borderBottomWidth: 1,
         borderBottomStyle: 'dashed',
-        borderBottomColor: '#4b5563',
+        borderBottomColor: '#000000',
         height: 40,
         marginBottom: 4,
     },
@@ -375,7 +377,7 @@ const InvoicePDF = ({ data, logoBase64, whatsappBase64 }) => {
                         <Text style={styles.invoiceText}>
                             <Text style={styles.boldText}>Invoice No: </Text>{invoiceNumber}
                         </Text>
-                        <Text style={styles.invoiceText}>Pro Nikhil Manoj wakode</Text>
+                        <Text style={styles.invoiceText}>Pro Annasaheb Moin</Text>
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', marginTop: -2 }}>
                             <View style={{ marginRight: 5, justifyContent: 'center', marginTop: 2 }}>
                                 {whatsappBase64 && <Image style={{ width: 10, height: 9 }} src={whatsappBase64} />}
@@ -514,13 +516,11 @@ const InvoicePDF = ({ data, logoBase64, whatsappBase64 }) => {
                         <View style={styles.signatureLine}></View>
                         <Text style={styles.signatureLabel}>Authorized Signatory</Text>
                         <Text style={styles.signatureSubLabel}>{SHOP_DETAILS.name}</Text>
-                        <Text style={styles.signatureSubLabel}>(Pro. Nikhil Manoj wakode)</Text>
+                        <Text style={styles.signatureSubLabel}>(Pro Annasaheb Moin)</Text>
                     </View>
                 </View>
 
-                <Text style={styles.footer}>
-                    This is a computer generated invoice and does not require a physical signature. (v2.1)
-                </Text>
+                
             </Page>
         </Document>
     );
