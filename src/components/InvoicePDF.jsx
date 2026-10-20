@@ -321,6 +321,7 @@ const InvoicePDF = ({ data, logoBase64, whatsappBase64 }) => {
         motorNo = '',
         batteryNo = '',
         chargerNo = '',
+        controllerNo = '',
         color = '',
         price = 0,
         gstType = 'cgst_sgst',
@@ -444,6 +445,7 @@ const InvoicePDF = ({ data, logoBase64, whatsappBase64 }) => {
                                 {motorNo && <Text style={styles.vehicleRow}><Text style={styles.boldText}>Motor No: </Text>{motorNo}</Text>}
                                 {batteryNo && <Text style={styles.vehicleRow}><Text style={styles.boldText}>Battery No: </Text>{batteryNo}</Text>}
                                 {chargerNo && <Text style={styles.vehicleRow}><Text style={styles.boldText}>Charger No: </Text>{chargerNo}</Text>}
+                                {controllerNo && <Text style={styles.vehicleRow}><Text style={styles.boldText}>Controller No: </Text>{controllerNo}</Text>}
                             </View>
                         </View>
                         <Text style={[styles.tableCell, styles.tableCellHsn]}>{SHOP_DETAILS.hsn}</Text>
@@ -501,6 +503,7 @@ const InvoicePDF = ({ data, logoBase64, whatsappBase64 }) => {
                     <Text style={styles.termItem}>2. Motor and controller carry a warranty of 2 years.</Text>
                     <Text style={styles.termItem}>3. Battery and charger carry a warranty of 1 year.</Text>
                     <Text style={styles.termItem}>4. No warranty is provided for physical damage or breakage.</Text>
+                    <Text style={styles.termItem}>5. Courier charges will be from customer's end.</Text>
                 </View>
 
                 {/* Signatures */}

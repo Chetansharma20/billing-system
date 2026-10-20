@@ -26,6 +26,7 @@ const Invoice = React.forwardRef(({ data }, ref) => {
         motorNo,
         batteryNo,
         chargerNo,
+        controllerNo,
         color,
         price,
         gstType = 'cgst_sgst',
@@ -170,6 +171,7 @@ const Invoice = React.forwardRef(({ data }, ref) => {
                                         {motorNo && <p><span className="font-bold">Motor No:</span> {motorNo}</p>}
                                         {batteryNo && <p><span className="font-bold">Battery No:</span> {batteryNo}</p>}
                                         {chargerNo && <p><span className="font-bold">Charger No:</span> {chargerNo}</p>}
+                                        {controllerNo && <p><span className="font-bold">Controller No:</span> {controllerNo}</p>}
                                     </div>
                                 </td>
                                 <td className="border-2 border-black p-2 text-center align-top font-semibold">{SHOP_DETAILS.hsn}</td>
@@ -228,6 +230,7 @@ const Invoice = React.forwardRef(({ data }, ref) => {
                             <li>Motor and controller carry a warranty of 2 years.</li>
                             <li>Battery and charger carry a warranty of 1 year.</li>
                             <li>No warranty is provided for physical damage or breakage.</li>
+                            <li>Courier charges will be from customer's end.</li>
                         </ol>
                     </div>
 

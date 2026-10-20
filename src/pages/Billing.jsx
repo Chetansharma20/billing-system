@@ -30,6 +30,7 @@ const INITIAL_STATE = {
   motorNo: "",
   batteryNo: "",
   chargerNo: "",
+  controllerNo: "",
   color: "",
   price: "",
   gstType: "cgst_sgst", // 'cgst_sgst' or 'igst'
@@ -501,6 +502,19 @@ const Billing = () => {
                       onChange={handleChange}
                       className="w-full px-3 py-3 text-base border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       placeholder="Enter charger number"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Controller No.
+                    </label>
+                    <input
+                      type="text"
+                      name="controllerNo"
+                      value={formData.controllerNo}
+                      onChange={handleChange}
+                      className="w-full px-3 py-3 text-base border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      placeholder="Enter controller number"
                     />
                   </div>
                   <div>
